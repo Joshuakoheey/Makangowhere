@@ -1,0 +1,28 @@
+<!-- this is a structure of Bootstrap Modal -->
+<html>
+<div class="modal fade overall" id="reviewModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-center">
+                <h5 class="modal-title text-light" id="review" style="font-weight: bold; font-size: x-large;">Reviews
+                </h5>
+                <button type="button" class="btn btn-primary" id="newReview" data-toggle="modal"
+                    data-target="#newReviewModal" data-dismiss="modal" onClick="newReview()">New Review</button>
+                <h2 style="font-size: 115%; font-family: Nirmala UI; color: orange; font-weight: bold;" id="signupmsg">
+                    Signup to <br> Write a
+                    review!</h2>
+            </div>
+            <div class="modal-body">
+                <div id="emptyReview">No reviews yet. Create one now!</div>
+                <div id="myreview"> </div>
+                <div class="row px-5" id="reviewBody"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                        style="float: right;">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

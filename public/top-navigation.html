@@ -1,0 +1,53 @@
+<link rel="stylesheet" href="css/mystyle.css" />
+<nav class="navbar navbar-expand-sm navbar-light" style="width: 100%">
+  <a href="index.html" class="navbar-brand">
+    <img src="images/logofinal.png" class="logo" alt="aaaa" />
+  </a>
+  <button class="navbar-dark navbar-toggler" type="button" data-toggle="collapse" data-target="#navSupportedContent"
+    style="float: right">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navSupportedContent" style="float: right; padding-left: 20%">
+    <ul class="navbar-nav ml-auto" style="
+        float: right;
+        padding-left: 20%;
+        font-weight: bold;
+        font-size: larger;
+      ">
+      <li class="nav-item" id="homeMenu" style="margin-right: 10px">
+        <a class="nav-link nav_stuff" href="index.html" id="now" onclick="home()">Home</a>
+      </li>
+
+      <li class="nav-item" id="comingMenu" style="margin-right: 10px">
+        <a class="nav-link nav_stuff" href="allrestaurants.html" id="coming">All Restaurants</a>
+      </li>
+
+      <li class="nav-item" id="nowMenu" style="margin-right: 10px">
+        <a class="nav-link nav_stuff" href="#" id="now" onclick="listNowShowingrestaurants()">Directory</a>
+      </li>
+
+      <li class="nav-item" id="registerMenu" style="margin-right: 10px">
+        <a class="nav-link nav_stuff" href="#" id="register" data-toggle="modal" data-target="#registerModal"
+          style="color: #0e5a66"><span class="glyphicon glyphicon-user"></span>&nbsp;<u>Register</u></a>
+      </li>
+
+      <li class="nav-item" id="loginMenu" style="margin-right: 10px">
+        <a class="nav-link nav_stuff" href="#" id="login" data-toggle="modal" data-target="#loginModal"
+          style="color: darkorange"><span class="glyphicon glyphicon-log-in"></span>&nbsp;<u>Login</u></a>
+      </li>
+
+      <li class="nav-item" id="logoutMenu" style="display: none">
+        <a class="nav-link nav_stuff" href="#" id="logout" style="color: #0e5a66"><span
+            class="glyphicon glyphicon-log-out"></span>&nbsp;<u>Log Out</u></a>
+      </li>
+    </ul>
+  </div>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $("button.navbar-toggle").click(function () {
+        $("button.navbar-toggle").toggleClass("collapse");
+      });
+    });
+  </script>
+</nav>

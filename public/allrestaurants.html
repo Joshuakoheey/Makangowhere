@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>MakanGoWhere: All Restaurants</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="css/mystyle.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/libraries/jquery.js"></script>
+  <script src="js/libraries/bootstrap_3.4.1.js"></script>
+
+  <link rel="stylesheet" href="css/chat.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+  <script>
+    var map, infoWindow;
+    var token = sessionStorage.getItem("token");
+  </script>
+
+  <script>
+    var username, email, firstname, lastname, gender, phonenumber, address, profilepicture, token;
+    token = sessionStorage.getItem("token");
+  </script>
+
+  <link rel="shortcut icon" type="image/x-icon" href="images/logoIco.ico">
+</head>
+<style>
+  body {
+    background-color: #efe7df;
+    padding-right: 0px !important;
+  }
+
+  .centertext {
+    text-align: center;
+  }
+
+  .img {
+    object-fit: cover;
+    width: 300px;
+    height: 337px;
+  }
+
+  h3 {
+    text-shadow: 2px 2px black;
+    font-size: 25px;
+    color: white;
+    font-weight: bold;
+    font-family: "Nirmala UI"
+  }
+
+  h2 {
+    font-family: "Nirmala UI";
+  }
+
+  p {
+    text-shadow: 2px 2px black;
+    font-size: 15px;
+    color: white;
+    font-family: "Nirmala UI"
+  }
+
+  form.example input[type=text] {
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid grey;
+    float: left;
+    width: 80%;
+    background: #f1f1f1;
+  }
+
+  form.example button {
+    float: left;
+    width: 20%;
+    padding: 10px;
+    background: #CA7E35;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+  }
+
+  form.example button:hover {
+    background: #E1964E;
+  }
+
+  form.example::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+</style>
+
+<body onload="getRestaurantData()">
+  <!--  Nav Bar -->
+  <div>
+    <nav class="navbar navbar-expand-sm navbar-light" style="width: 100%">
+      <a href="index.html" class="navbar-brand">
+        <img src="images/logofinal.png" class="logo" alt="aaaa" />
+      </a>
+      <button class="navbar-dark navbar-toggler" type="button" data-toggle="collapse" data-target="#navSupportedContent"
+        style="float: right">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navSupportedContent" style="float: right; padding-left: 20%">
+        <ul class="navbar-nav ml-auto" style="
+              float: right;
+              padding-left: 20%;
+              font-weight: bold;
+              font-size: larger;
+            ">
+          <li class="nav-item" id="homeMenu" style="margin-right: 10px">
+            <a class="nav-link nav_stuff" href="index.html" id="now" onclick="home()">Home</a>
+          </li>
+
+          <li class="nav-item" id="comingMenu" style="margin-right: 10px">
+            <a class="nav-link nav_stuff" href="allrestaurants.html" id="coming">All Restaurants</a>
+          </li>
+
+          <li class="nav-item" id="" style="margin-right: 10px">
+            <a class="nav-link nav_stuff" href="contact.html" id="">Contact Us!</a>
+          </li>
+
+          <li class="nav-item" id="registerMenu" style="margin-right: 10px">
+            <a class="nav-link nav_stuff" href="#" id="register" data-toggle="modal" data-target="#registerModal"
+              style="color: #0e5a66"><span class="glyphicon glyphicon-user"></span>&nbsp;<u>Register</u></a>
+          </li>
+
+          <li class="nav-item" id="loginMenu" style="margin-right: 10px">
+            <a class="nav-link nav_stuff" href="#" id="login" data-toggle="modal" data-target="#loginModal"
+              style="color: darkorange"><span class="glyphicon glyphicon-log-in"></span>&nbsp;<u>Login</u></a>
+          </li>
+
+          <li class="nav-item" id="profileMenu" style="margin-right: 10px; display: none;">
+            <a class="nav-link nav_stuff" href="#" id="profile" data-toggle="modal" data-target="#profileModal"
+              style="color: darkorange" onClick="updateprofile()">
+              <img style="vertical-align: middle; width: 23px; height: 23px; border-radius: 50%;" viewBox="0 0 16 16"
+                id="heynow">
+              &nbsp;<u>Profile</u></a>
+          </li>
+
+          <li class="nav-item" id="logoutMenu" style="display: none">
+            <a class="nav-link nav_stuff" href="#" id="logout" style="color: #0e5a66" onclick="logoutMe();"><span
+                class="glyphicon glyphicon-log-out"></span>&nbsp;<u>Log Out</u></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Search Bar -->
+  <div style="width:100%; height:230px; background-color: #0E5A66;">
+    <br>
+    <h2 class="centertext" style="font-family: Nirmala UI; font-size: 40px; color: #EFE7DF;">Search All Restaurants</h2>
+    <br><br>
+    <div class="container">
+      <div class="input-filter centertext">
+        <input type="text" id="filter" class="filter"
+          style="text-align:center; margin:auto; border-radius: 20px; width:600px; height: 50px; font-family: Nirmala UI; font-size: 18px;"
+          placeholder="  Search for a Restaurant or a Cuisine!" onkeyup="searchProduct()">
+      </div>
+    </div>
+  </div>
+
+  <!-- All Restaurants -->
+  <h2 class="centertext" style="font-family: Nirmala UI; font-size: 40px;">All Restaurants</h2>
+  <div class="container">
+    <!-- The message will be shown when the page loads and will
+        disappear after the restaurants are loaded -->
+    <div class="row" id="parent">
+      Retrieving restaurants from database... Please wait...
+    </div>
+    <!-- Displays thumbnails of the restaurants here -->
+    <div id="restaurants" class="row"></div>
+  </div>
+
+  <div w3-include-html="review-modal.html"></div>
+  <div w3-include-html="restaurant-modal.html"></div>
+  <div w3-include-html="new-review-modal.html"></div>
+  <div w3-include-html="edit-review-modal.html"></div>
+  <div w3-include-html="register-modal.html"></div>
+  <div w3-include-html="success-modal.html"></div>
+  <div w3-include-html="login-modal.html"></div>
+  <div w3-include-html="fail-modal.html"></div>
+  <div w3-include-html="profile-modal.html"></div>
+  <div w3-include-html="footer.html"></div>
+
+  <!-- Chat Bot -->
+  <div class="chat-bar-collapsible">
+    <button id="chat-button" type="button" style="color: #fff; background-color: black;" class="collapsible">Chat with
+      us!
+      <i id="chat-icon" style="color: #fff;" class="fa fa-fw fa-comments-o"></i>
+    </button>
+
+    <div class="content" style="margin-top: 0px;">
+      <div class="full-chat-block">
+        <!-- Message Container -->
+        <div class="outer-container">
+          <div class="chat-container">
+            <!-- Messages -->
+            <div id="chatbox">
+              <h5 id="chat-timestamp"></h5>
+              <p id="botStarterMessage" class="botText"><span>Loading...</span></p>
+            </div>
+
+            <!-- User input box -->
+            <div class="chat-bar-input-block">
+              <div id="userInput">
+                <input id="textInput" class="input-box" type="text" name="msg"
+                  placeholder="Tap 'Enter' to send a message">
+                <p></p>
+              </div>
+
+              <div class="chat-bar-icons">
+                <i id="chat-icon" style="color: crimson;" class="fa fa-fw fa-heart" onclick="heartButton()"></i>
+                <i id="chat-icon" style="color: #333;" class="fa fa-fw fa-send" onclick="sendButton()"></i>
+              </div>
+            </div>
+
+            <div id="chat-bar-bottom">
+              <p></p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</body>
+
+<script src="js/w3.js"></script>
+<script src="js/app.js"></script>
+<script src="js/register.js"></script>
+<script src="js/login.js"></script>
+<script src="js/checktoken.js"></script>
+<script src="js/review.js"></script>
+<script src="js/allrestaurants.js"></script>
+<script src="js/logout.js"></script>
+<script src="js/loadProfile.js"></script>
+<script src="js/updateProfile.js"></script>
+<script src="js/profilepic.js"></script>
+<script src="js/responses.js"></script>
+<script src="js/chat.js"></script>
+
+<script>
+  w3.includeHTML(); //to bring in other HTML on the fly into this page
+</script>
+
+<!-- Gmaps -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFW2OV-61uXvvJXSTN_-E3ZnTIduGm3xA">
+</script>
+
+</html>

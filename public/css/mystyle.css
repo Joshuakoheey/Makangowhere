@@ -1,0 +1,118 @@
+.mystyle {
+  height: 50px;
+  width: 254px;
+  color: black;
+  font-size: smaller;
+  text-align: center;
+  font-family: Nirmala UI;
+}
+
+footer {
+  height: 50px;
+  background: #0e5a66;
+  color: black;
+  font-family: Bahnschrift;
+  font-size: medium;
+  text-align: left;
+}
+
+.edit {
+  float: right;
+  padding-right: 10px;
+}
+
+.thumb_img {
+  background-repeat: no-repeat;
+  width: 262px;
+  height: 155px;
+  border-radius: 20px;
+}
+
+.logo {
+  position: absolute;
+  height: 64px;
+}
+
+.navbar-nav {
+  padding-top: 10px;
+}
+
+.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+}
+
+.content {
+  margin-top: 100px;
+}
+
+.hopefullyitworks {
+  cursor: pointer;
+}
+
+.bottom_text {
+  margin-top: 20px;
+}
+
+.nav_stuff {
+  color: black;
+  font-size: large;
+  display: flex;
+}
+
+.navbar-brand {
+  padding: 0px 15px;
+  height: 50px;
+  max-height: 70px;
+}
+
+.text-dark {
+  color: black;
+  font-size: 30px;
+  font-family: "Nirmala UI";
+}
+
+/* Set the size of the div element that contains the map */
+#map {
+  height: 300px;
+  /* The height is 400 pixels */
+  width: 300px;
+  /* The width is the width of the web page */
+}
+
+.left {
+  float: left;
+  width: 30%;
+  height: 470px;
+  padding: 0 10px;
+}
+
+.right {
+  float: right;
+  width: 30%;
+  height: 470px;
+  padding: 0 10px;
+}
+
+.text {
+  font-size: 20px;
+  font-family: Nirmala UI;
+  word-wrap: break-word;
+}
+
+.texty {
+  font-size: 15px;
+  font-family: Nirmala UI;
+  word-wrap: break-word;
+}
+
+.bruh {
+  text-shadow: none;
+  color: black;
+}
+
+.btnn {
+  background-color: inherit;
+  cursor: pointer;
+}

@@ -1,0 +1,42 @@
+<div class="modal fade" id="editreviewModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-dark text-center">
+        <h3 class="modal-title text-light">Edit a Review</h3>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body px-5">
+        <form id="reviewForm">
+          <div class="row" text-center id="editreviewBody">
+            <label for="editreviewtitle">Title</label>
+            <input type="text" id="editreviewtitle" class="form-control" required
+              placeholder="Give your review a title!" />
+            <label for="userReviews">Review</label>
+            <textarea id="edituserReviews" required class="form-control form-rounded" rows="3" cols="100%"
+              placeholder="Write your review here!"></textarea>
+            <label for="rating">Overall Rating</label>
+            <img src="/images/restaurant_unrated.png" class="editrat" style='width:50px;' value="1"
+              onmouseover="rateIt(this)" />
+            <img src="/images/restaurant_unrated.png" class="editrat" style='width:50px;' value="2"
+              onmouseover="rateIt(this)" />
+            <img src="/images/restaurant_unrated.png" class="editrat" style='width:50px;' value="3"
+              onmouseover="rateIt(this)" />
+            <img src="/images/restaurant_unrated.png" class="editrat" style='width:50px;' value="4"
+              onmouseover="rateIt(this)" />
+            <img src="/images/restaurant_unrated.png" class="editrat" style='width:50px;' value="5"
+              onmouseover="rateIt(this)" />
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" id="editCommentty"
+              onClick="updateReview()">
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

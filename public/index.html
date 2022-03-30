@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>MakanGoWhere: Home</title>
+  <meta charset="utf-8" />
+
+  <!-- libraries -->
+  <link rel="stylesheet" href="css/mystyle.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+
+  <link rel="stylesheet" href="css/chat.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <script>
+    var map, infoWindow;
+    var token = sessionStorage.getItem("token");
+  </script>
+
+  <script>
+    var username, email, firstname, lastname, gender, phonenumber, address, profilepicture, token;
+    token = sessionStorage.getItem("token");
+  </script>
+
+  <link rel="shortcut icon" type="image/x-icon" href="images/logoIco.ico">
+</head>
+
+<style>
+  body {
+    background-color: #efe7df;
+    padding-right: 0px !important;
+  }
+
+
+
+  .centertext {
+    text-align: center;
+  }
+
+  .img {
+    object-fit: cover;
+    width: 300px;
+    height: 337px;
+  }
+
+  .carousel-inner .item {
+    height: 500px;
+    background-size: cover;
+    background-position: center center;
+  }
+
+  h3 {
+    text-shadow: 2px 2px black;
+    font-size: 25px;
+    color: white;
+    font-weight: bold;
+    font-family: "Nirmala UI";
+  }
+
+  h2 {
+    font-family: "Nirmala UI";
+  }
+
+  p {
+    text-shadow: 2px 2px black;
+    font-size: 15px;
+    color: white;
+    font-family: "Nirmala UI";
+  }
+
+  form.example input[type="text"] {
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid grey;
+    float: left;
+    width: 80%;
+    background: #f1f1f1;
+  }
+
+  form.example button {
+    float: left;
+    width: 20%;
+    padding: 10px;
+    background: #ca7e35;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+  }
+
+  form.example button:hover {
+    background: #e1964e;
+  }
+
+  form.example::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+</style>
+
+<body onload="getRestaurantData()" style="min-width: 500px">
+  <!--  Nav Bar -->
+  <div>
+    <nav class="navbar navbar-expand-sm navbar-light" style="width: 100%">
+      <a href="index.html" class="navbar-brand">
+        <img src="images/logofinal.png" class="logo" alt="aaaa" />
+      </a>
+      <button class="navbar-dark navbar-toggler" type="button" data-toggle="collapse" data-target="#navSupportedContent"
+        style="float: right">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navSupportedContent" style="float: right; padding-left: 20%">
+        <ul class="navbar-nav ml-auto" style="
+              float: right;
+              padding-left: 20%;
+              font-weight: bold;
+              font-size: larger;
+            ">
+          <li class="nav-item" id="homeMenu" style="margin-right: 10px">
+            <a class="nav-link nav_stuff" href="index.html" id="now" onclick="home()">Home</a>
+          </li>
+
+          <li class="nav-item" id="comingMenu" style="margin-right: 10px">
+            <a class="nav-link nav_stuff" href="allrestaurants.html" id="coming">All Restaurants</a>
+          </li>
+
+          <li class="nav-item" id="" style="margin-right: 10px">
+            <a class="nav-link nav_stuff" href="contact.html" id="">Contact Us!</a>
+          </li>
+
+          <li class="nav-item" id="registerMenu" style="margin-right: 10px">
+            <a class="nav-link nav_stuff" href="#" id="register" data-toggle="modal" data-target="#registerModal"
+              style="color: #0e5a66"><span class="glyphicon glyphicon-user"></span>&nbsp;<u>Register</u></a>
+          </li>
+
+          <li class="nav-item" id="loginMenu" style="margin-right: 10px">
+            <a class="nav-link nav_stuff" href="#" id="login" data-toggle="modal" data-target="#loginModal"
+              style="color: darkorange"><span class="glyphicon glyphicon-log-in"></span>&nbsp;<u>Login</u></a>
+          </li>
+
+          <li class="nav-item" id="profileMenu" style="margin-right: 10px; display: none;">
+            <a class="nav-link nav_stuff" href="#" id="profile" data-toggle="modal" data-target="#profileModal"
+              style="color: darkorange" onClick="updateprofile()">
+              <img style="vertical-align: middle; width: 23px; height: 23px; border-radius: 50%;" viewBox="0 0 16 16"
+                id="heynow">
+              &nbsp;<u>Profile</u></a>
+          </li>
+
+          <li class="nav-item" id="logoutMenu" style="display: none">
+            <a class="nav-link nav_stuff" href="#" id="logout" style="color: #0e5a66" onclick="logoutMe();"><span
+                class="glyphicon glyphicon-log-out"></span>&nbsp;<u>Log Out</u></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Landing Page -->
+  <div>
+    <div style="
+          width: 100%;
+          height: 900px;
+          background-image: linear-gradient(
+              rgba(0, 0, 0, 0.5),
+              rgba(0, 0, 0, 0.5)
+            ),
+            url('images/landingpagepic2.jpg');
+          background-size: cover;
+          justify-content: center;
+        ">
+      <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+      <h2 class="centertext" style="
+            font-family: Nirmala UI;
+            font-size: 60px;
+            color: white;
+            text-shadow: 2px 2px black;
+            font-weight: bold;
+            height: 200px;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+          " id="unloggedinmsg">
+        Feelin'
+
+        <span style="color: orange">Hungry?</span><br />
+
+        <span style="font-size: 28px; color: white; text-shadow: 2px 2px black">
+          Join our growing community of foodies on MakanGoWhere;<br />
+          <span class="btnn" id="register" data-toggle="modal" data-target="#registerModal"
+            style="color: lightskyblue">Sign Up Now</span>
+          and share your favourite restaurants with the world! </span><br />
+      </h2>
+
+      <h2 class="centertext" style="
+            font-family: Nirmala UI;
+            font-size: 60px;
+            color: white;
+            text-shadow: 2px 2px black;
+            font-weight: bold;
+            height: 200px;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            display: none;" id="loggedinmsg">
+        Welcome Back
+
+        <span style="color: orange" id="username">username</span>
+        <span style="color: white">!</span><br />
+
+        <span style="font-size: 28px; color: white; text-shadow: 2px 2px black">Thanks for being a part of our growing
+          community of foodies on
+          MakanGoWhere;<br />
+          Click on the Restaurants Tab to explore thousands of reviews <br />
+          or even contribute some yourself!</span><br />
+      </h2>
+
+      <br /><br />
+    </div>
+    <br />
+    <h2 class="centertext" style="font-family: Nirmala UI; font-size: 40px">
+      Editors Choice
+    </h2>
+    <br />
+    <div class="container" style="float: none; margin: 0 auto; max-width: 100%; height: auto">
+      <div id="myCarousel" class="carousel slide">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+          <li data-target="#myCarousel" data-slide-to="1"></li>
+          <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+          <div class="item active">
+            <img id="image1" style="width: 100%" />
+            <div class="carousel-caption">
+              <h3 id="title1"></h3>
+            </div>
+          </div>
+          <div class="item">
+            <img id="image2" style="width: 100%" />
+            <div class="carousel-caption">
+              <h3 id="title2"></h3>
+            </div>
+          </div>
+          <div class="item">
+            <img id="image3" style="width: 100%" />
+            <div class="carousel-caption">
+              <h3 id="title3"></h3>
+            </div>
+          </div>
+        </div>
+        <!-- Left and right controls for Carousel -->
+        <a class="left carousel-control" style="height: 100%" href="#myCarousel" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" style="height: 100%" href="#myCarousel" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top 6 Highest Rated Restaurants -->
+  <br />
+  <h2 class="centertext" style="font-family: Nirmala UI; font-size: 40px">
+    Top Rated Restaurants
+  </h2>
+  <div class="container">
+    <!-- The message will be shown when the page loads and will
+        disappear after the restaurants are loaded -->
+    <div class="row" id="parent">
+      Retrieving restaurants from database... Please wait...
+    </div>
+    <!-- Displays top restaurants -->
+    <div id="restaurantsTable" class="row"></div>
+  </div>
+
+  <div w3-include-html="review-modal.html"></div>
+  <div w3-include-html="register-modal.html"></div>
+  <div w3-include-html="success-modal.html"></div>
+  <div w3-include-html="login-modal.html"></div>
+  <div w3-include-html="fail-modal.html"></div>
+  <div w3-include-html="restaurant-modal.html"></div>
+  <div w3-include-html="new-review-modal.html"></div>
+  <div w3-include-html="edit-review-modal.html"></div>
+  <div w3-include-html="profile-modal.html"></div>
+  <div w3-include-html="footer.html"></div>
+
+  <!-- Chat Bot -->
+  <div class="chat-bar-collapsible">
+    <button id="chat-button" type="button" style="color: #fff; background-color: black;" class="collapsible">Chat with
+      us!
+      <i id="chat-icon" style="color: #fff;" class="fa fa-fw fa-comments-o"></i>
+    </button>
+
+    <div class="content" style="margin-top: 0px;">
+      <div class="full-chat-block">
+        <!-- Message Container -->
+        <div class="outer-container">
+          <div class="chat-container">
+            <!-- Messages -->
+            <div id="chatbox">
+              <h5 id="chat-timestamp"></h5>
+              <p id="botStarterMessage" class="botText"><span>Loading...</span></p>
+            </div>
+
+            <!-- User input box -->
+            <div class="chat-bar-input-block">
+              <div id="userInput">
+                <input id="textInput" class="input-box" type="text" name="msg"
+                  placeholder="Tap 'Enter' to send a message">
+                <p></p>
+              </div>
+
+              <div class="chat-bar-icons">
+                <i id="chat-icon" style="color: crimson;" class="fa fa-fw fa-heart" onclick="heartButton()"></i>
+                <i id="chat-icon" style="color: #333;" class="fa fa-fw fa-send" onclick="sendButton()"></i>
+              </div>
+            </div>
+
+            <div id="chat-bar-bottom">
+              <p></p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</body>
+
+<script src="js/w3.js"></script>
+<script src="js/app.js"></script>
+<script src="js/review.js"></script>
+<script src="js/homepage.js"></script>
+<script src="js/register.js"></script>
+<script src="js/login.js"></script>
+<script src="js/checktoken.js"></script>
+<script src="js/logout.js"></script>
+<script src="js/loadProfile.js"></script>
+<script src="js/updateProfile.js"></script>
+<script src="js/profilepic.js"></script>
+<script src="js/responses.js"></script>
+<script src="js/chat.js"></script>
+
+<script>
+  w3.includeHTML(); //to bring in other HTML on the fly into this page
+</script>
+
+<!-- Gmaps -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFW2OV-61uXvvJXSTN_-E3ZnTIduGm3xA">
+</script>
+
+</html>
